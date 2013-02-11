@@ -72,7 +72,7 @@ class DOMPDFFactory implements FactoryInterface
         $config = $config['dompdf_module'];
         
         if (defined('DOMPDF_DIR') === false) {
-            define("DOMPDF_DIR", __DIR__ . '/../../../vendor/dompdf');
+            define("DOMPDF_DIR", 'vendor/dompdf/dompdf');
         }
         
         if (defined('DOMPDF_INC_DIR') === false) {
@@ -85,6 +85,14 @@ class DOMPDFFactory implements FactoryInterface
 
         if (defined('DOMPDF_AUTOLOAD_PREPEND') === false) {
             define("DOMPDF_AUTOLOAD_PREPEND", false);
+        }
+
+        if (defined('DOMPDF_ADMIN_USERNAME') === false) {
+            define("DOMPDF_ADMIN_USERNAME", 'not-used');
+        }
+
+        if (defined('DOMPDF_ADMIN_PASSWORD') === false) {
+            define("DOMPDF_ADMIN_PASSWORD", md5(microtime())); // No this is not really save but more then enough
         }
         
         foreach ($config as $key => $value) {
