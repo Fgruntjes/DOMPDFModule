@@ -3,6 +3,8 @@
 /**
  * Ensure that PHP is working with text internally using UTF8 character encoding.
  */
+use Dompdf\Image\Cache;
+
 mb_internal_encoding('UTF-8');
 
 /**
@@ -41,3 +43,5 @@ $_dompdf_debug = false;
  */
 global $_DOMPDF_DEBUG_TYPES;
 $_DOMPDF_DEBUG_TYPES = array(); //array("page-break" => 1);
+
+Cache::$broken_image = DOMPDF_LIB_DIR . '/res/broken_image.png';

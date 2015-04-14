@@ -19,9 +19,10 @@
 
 namespace DOMPDFModule\Service;
 
+use DOMPDFModule\View\Renderer\PdfRenderer;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DOMPDF;
+use Dompdf\Dompdf;
 
 class DOMPDFFactory implements FactoryInterface
 {
@@ -76,7 +77,7 @@ class DOMPDFFactory implements FactoryInterface
         }
         
         if (defined('DOMPDF_INC_DIR') === false) {
-            define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
+            define("DOMPDF_INC_DIR", DOMPDF_DIR . "/src");
         }
         
         if (defined('DOMPDF_LIB_DIR') === false) {
@@ -112,7 +113,11 @@ class DOMPDFFactory implements FactoryInterface
         require_once DOMPDF_INC_DIR . '/autoload.inc.php';
         require_once __DIR__ . '/../../../config/module.compat.php';
         
-        return new DOMPDF();
+        $pdf = new Dompdf();
+	    foreach ($config as $key => $value) {
+		    $pdf->getOptions()->set($key, $value);
+	    }
+	    return $pdf;
     }
 }
 
